@@ -414,185 +414,196 @@
     </div>
 
     <script>
-        let player1Score = 0;
-        let player2Score = 0;
-        let currentServer = 1;
-        let currentService = 1; // Service 1 atau Service 2
-        let gameEnded = false;
-        
-        function showNameModal() {
-            document.getElementById('name-modal').style.display = 'flex';
+    let player1Score = 0;
+    let player2Score = 0;
+    let currentServer = 1;
+    let currentService = 1;
+    let gameEnded = false;
+
+    // ====== LOAD DATA SAAT HALAMAN DIBUKA ======
+    window.onload = function () {
+        const savedData = JSON.parse(localStorage.getItem("scoreData"));
+        if (savedData) {
+            player1Score = savedData.player1Score || 0;
+            player2Score = savedData.player2Score || 0;
+            currentServer = savedData.currentServer || 1;
+            currentService = savedData.currentService || 1;
+            gameEnded = savedData.gameEnded || false;
+
+            document.getElementById("player1-name").textContent = savedData.team1Name || "Nama/Nama";
+            document.getElementById("player2-name").textContent = savedData.team2Name || "Nama/Nama";
         }
-        
-        function closeNameModal() {
-            document.getElementById('name-modal').style.display = 'none';
-        }
-        
-        function updatePlayerNames() {
-            const team1Player1 = document.getElementById('team1-player1').value || 'Pemain1';
-            const team1Player2 = document.getElementById('team1-player2').value || 'Pemain2';
-            const team2Player1 = document.getElementById('team2-player1').value || 'Pemain1';
-            const team2Player2 = document.getElementById('team2-player2').value || 'Pemain2';
-            
-            const team1Name = `${team1Player1}/${team1Player2}`;
-            const team2Name = `${team2Player1}/${team2Player2}`;
-            
-            document.getElementById('player1-name').textContent = team1Name;
-            document.getElementById('player2-name').textContent = team2Name;
-            
-            closeNameModal();
-        }
-        
-        function updateDisplay() {
-            document.getElementById('score1').textContent = player1Score;
-            document.getElementById('score2').textContent = player2Score;
-            
-            // Update service indicators
-            const service1 = document.getElementById('service1');
-            const service2 = document.getElementById('service2');
-            const section1 = document.getElementById('player1-section');
-            const section2 = document.getElementById('player2-section');
-            
-            // Clear previous states
-            section1.classList.remove('serving');
-            section2.classList.remove('serving');
-            
-            // Update service buttons
-            updateServiceButtons();
-            
-            // Update score control buttons
-            updateScoreButtons();
-            
-            if (!gameEnded) {
-                if (currentServer === 1) {
-                    service1.innerHTML = `<span class="serving-text">🏸 Service ${currentService}</span>`;
-                    service2.innerHTML = ''; // Hilangkan tampilan service di tim lawan
-                    section1.classList.add('serving');
-                } else {
-                    service2.innerHTML = `<span class="serving-text">🏸 Service ${currentService}</span>`;
-                    service1.innerHTML = ''; // Hilangkan tampilan service di tim lawan
-                    section2.classList.add('serving');
-                }
-            }
-        }
-        
-        function updateServiceButtons() {
-            // Reset all service buttons
-            document.querySelectorAll('.service-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Highlight active service buttons
-            const player1Buttons = document.querySelectorAll('#player1-section .service-btn');
-            const player2Buttons = document.querySelectorAll('#player2-section .service-btn');
-            
-            if (currentServer === 1) {
-                player1Buttons[currentService - 1].classList.add('active');
-            } else {
-                player2Buttons[currentService - 1].classList.add('active');
-            }
-        }
-        
-        function setService(player, service) {
-            if (gameEnded) return;
-            
-            currentServer = player;
-            currentService = service;
-            updateDisplay();
-        }
-        
-        function updateScoreButtons() {
-            const player1UpBtn = document.querySelector('#player1-section .up-btn');
-            const player1DownBtn = document.querySelector('#player1-section .down-btn');
-            const player2UpBtn = document.querySelector('#player2-section .up-btn');
-            const player2DownBtn = document.querySelector('#player2-section .down-btn');
-            
-            // Reset all buttons
-            [player1UpBtn, player1DownBtn, player2UpBtn, player2DownBtn].forEach(btn => {
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.cursor = 'pointer';
-            });
-            
-            // Disable buttons for non-serving team
-            if (currentServer === 1) {
-                player2UpBtn.disabled = true;
-                player2DownBtn.disabled = true;
-                player2UpBtn.style.opacity = '0.3';
-                player2DownBtn.style.opacity = '0.3';
-                player2UpBtn.style.cursor = 'not-allowed';
-                player2DownBtn.style.cursor = 'not-allowed';
-            } else {
-                player1UpBtn.disabled = true;
-                player1DownBtn.disabled = true;
-                player1UpBtn.style.opacity = '0.3';
-                player1DownBtn.style.opacity = '0.3';
-                player1UpBtn.style.cursor = 'not-allowed';
-                player1DownBtn.style.cursor = 'not-allowed';
-            }
-        }
-        
-        function addPoint(player) {
-            if (gameEnded) return;
-            
-            // Hanya yang sedang service yang bisa dapat poin
-            if (player !== currentServer) return;
-            
-            if (player === 1) {
-                player1Score++;
-            } else {
-                player2Score++;
-            }
-            
-            // Cek kemenangan (30 poin)
-            if (player1Score >= 30 || player2Score >= 30) {
-                gameEnded = true;
-                const winner = player1Score >= 30 ? 
-                    document.getElementById('player1-name').textContent : 
-                    document.getElementById('player2-name').textContent;
-                showWinner(winner);
-            }
-            
-            updateDisplay();
-        }
-        
-        function subtractPoint(player) {
-            if (gameEnded) return;
-            
-            // Hanya yang sedang service yang bisa kurangi poin
-            if (player !== currentServer) return;
-            
-            if (player === 1 && player1Score > 0) {
-                player1Score--;
-            } else if (player === 2 && player2Score > 0) {
-                player2Score--;
-            }
-            
-            updateDisplay();
-        }
-        
-        function showWinner(winner) {
-            const winnerText = document.getElementById('winner-text');
-            winnerText.innerHTML = `🎉 ${winner} Menang! 🎉<br><span style="font-size: 1.5rem;">Skor Akhir: ${player1Score} - ${player2Score}</span>`;
-            document.getElementById('winner-modal').style.display = 'flex';
-        }
-        
-        function closeWinnerModal() {
-            document.getElementById('winner-modal').style.display = 'none';
-        }
-        
-        function resetGame() {
-            player1Score = 0;
-            player2Score = 0;
-            currentServer = 1;
-            currentService = 1;
-            gameEnded = false;
-            closeWinnerModal();
-            updateDisplay();
-        }
-        
-        // Initialize display
         updateDisplay();
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9915282412b5ce4d',t:'MTc2MDkyODA5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    };
+
+    // ====== SIMPAN DATA KE LOCALSTORAGE ======
+    function saveData() {
+        const data = {
+            player1Score,
+            player2Score,
+            currentServer,
+            currentService,
+            gameEnded,
+            team1Name: document.getElementById("player1-name").textContent,
+            team2Name: document.getElementById("player2-name").textContent
+        };
+        localStorage.setItem("scoreData", JSON.stringify(data));
+    }
+
+    // ====== MODAL PENGATURAN NAMA ======
+    function showNameModal() {
+        document.getElementById("name-modal").style.display = "flex";
+    }
+
+    function closeNameModal() {
+        document.getElementById("name-modal").style.display = "none";
+    }
+
+    function updatePlayerNames() {
+        const team1Player1 = document.getElementById("team1-player1").value || "Pemain1";
+        const team1Player2 = document.getElementById("team1-player2").value || "Pemain2";
+        const team2Player1 = document.getElementById("team2-player1").value || "Pemain1";
+        const team2Player2 = document.getElementById("team2-player2").value || "Pemain2";
+
+        const team1Name = `${team1Player1}/${team1Player2}`;
+        const team2Name = `${team2Player1}/${team2Player2}`;
+
+        document.getElementById("player1-name").textContent = team1Name;
+        document.getElementById("player2-name").textContent = team2Name;
+
+        saveData();
+        closeNameModal();
+    }
+
+    // ====== TAMPILAN SKOR DAN SERVICE ======
+    function updateDisplay() {
+        document.getElementById("score1").textContent = player1Score;
+        document.getElementById("score2").textContent = player2Score;
+
+        const service1 = document.getElementById("service1");
+        const service2 = document.getElementById("service2");
+        const section1 = document.getElementById("player1-section");
+        const section2 = document.getElementById("player2-section");
+
+        section1.classList.remove("serving");
+        section2.classList.remove("serving");
+
+        updateServiceButtons();
+        updateScoreButtons();
+
+        if (!gameEnded) {
+            if (currentServer === 1) {
+                service1.innerHTML = `<span class="serving-text">🏸 Service ${currentService}</span>`;
+                service2.innerHTML = "";
+                section1.classList.add("serving");
+            } else {
+                service2.innerHTML = `<span class="serving-text">🏸 Service ${currentService}</span>`;
+                service1.innerHTML = "";
+                section2.classList.add("serving");
+            }
+        }
+
+        saveData();
+    }
+
+    function updateServiceButtons() {
+        document.querySelectorAll(".service-btn").forEach(btn => btn.classList.remove("active"));
+        const player1Buttons = document.querySelectorAll("#player1-section .service-btn");
+        const player2Buttons = document.querySelectorAll("#player2-section .service-btn");
+
+        if (currentServer === 1) {
+            player1Buttons[currentService - 1].classList.add("active");
+        } else {
+            player2Buttons[currentService - 1].classList.add("active");
+        }
+    }
+
+    function setService(player, service) {
+        if (gameEnded) return;
+        currentServer = player;
+        currentService = service;
+        updateDisplay();
+    }
+
+    function updateScoreButtons() {
+        const player1UpBtn = document.querySelector("#player1-section .up-btn");
+        const player1DownBtn = document.querySelector("#player1-section .down-btn");
+        const player2UpBtn = document.querySelector("#player2-section .up-btn");
+        const player2DownBtn = document.querySelector("#player2-section .down-btn");
+
+        [player1UpBtn, player1DownBtn, player2UpBtn, player2DownBtn].forEach(btn => {
+            btn.disabled = false;
+            btn.style.opacity = "1";
+            btn.style.cursor = "pointer";
+        });
+
+        if (currentServer === 1) {
+            player2UpBtn.disabled = true;
+            player2DownBtn.disabled = true;
+            player2UpBtn.style.opacity = "0.3";
+            player2DownBtn.style.opacity = "0.3";
+        } else {
+            player1UpBtn.disabled = true;
+            player1DownBtn.disabled = true;
+            player1UpBtn.style.opacity = "0.3";
+            player1DownBtn.style.opacity = "0.3";
+        }
+    }
+
+    // ====== LOGIKA POIN DAN KEMENANGAN ======
+    function addPoint(player) {
+        if (gameEnded || player !== currentServer) return;
+
+        if (player === 1) player1Score++;
+        else player2Score++;
+
+        if (player1Score >= 30 || player2Score >= 30) {
+            gameEnded = true;
+            const winner = player1Score >= 30
+                ? document.getElementById("player1-name").textContent
+                : document.getElementById("player2-name").textContent;
+            showWinner(winner);
+        }
+
+        updateDisplay();
+    }
+
+    function subtractPoint(player) {
+        if (gameEnded || player !== currentServer) return;
+
+        if (player === 1 && player1Score > 0) player1Score--;
+        else if (player === 2 && player2Score > 0) player2Score--;
+
+        updateDisplay();
+    }
+
+    // ====== MODAL PEMENANG ======
+    function showWinner(winner) {
+        const winnerText = document.getElementById("winner-text");
+        winnerText.innerHTML = `🎉 ${winner} Menang! 🎉<br><span style="font-size: 1.5rem;">Skor Akhir: ${player1Score} - ${player2Score}</span>`;
+        document.getElementById("winner-modal").style.display = "flex";
+        saveData();
+    }
+
+    function closeWinnerModal() {
+        document.getElementById("winner-modal").style.display = "none";
+    }
+
+    // ====== RESET GAME ======
+    function resetGame() {
+        player1Score = 0;
+        player2Score = 0;
+        currentServer = 1;
+        currentService = 1;
+        gameEnded = false;
+        localStorage.removeItem("scoreData");
+        closeWinnerModal();
+        updateDisplay();
+    }
+
+    updateDisplay();
+</script>
+
+</body>
 </html>
+
