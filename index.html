@@ -14,11 +14,11 @@
             min-height: 100%;
             color: white;
         }
-        
+
         html {
             height: 100%;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -28,7 +28,7 @@
             padding: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        
+
         .title {
             text-align: center;
             font-size: 2.5rem;
@@ -36,21 +36,21 @@
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         .subtitle {
             text-align: center;
             font-size: 1.1rem;
             margin-bottom: 30px;
             opacity: 0.9;
         }
-        
+
         .scoreboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 30px;
         }
-        
+
         .player-section {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 15px;
@@ -58,27 +58,27 @@
             text-align: center;
             transition: transform 0.3s ease;
         }
-        
+
         .player-section.serving {
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 193, 7, 0.5));
             transform: scale(1.02);
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
             border: 2px solid rgba(255, 215, 0, 0.7);
         }
-        
+
         .player-name {
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 15px;
         }
-        
+
         .score {
             font-size: 4rem;
             font-weight: bold;
             margin: 20px 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-        
+
         .service-indicator {
             font-size: 1.2rem;
             margin-bottom: 20px;
@@ -87,7 +87,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .serving-text {
             background: linear-gradient(45deg, #ffd700, #ffed4e);
             color: #1a1a1a;
@@ -97,7 +97,7 @@
             box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
             border: 1px solid rgba(255, 215, 0, 0.8);
         }
-        
+
         .score-container {
             display: flex;
             align-items: center;
@@ -105,7 +105,7 @@
             gap: 15px;
             margin: 20px 0;
         }
-        
+
         .score-control {
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -120,26 +120,26 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .score-control:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: scale(1.1);
         }
-        
+
         .up-btn:hover {
             background: rgba(76, 175, 80, 0.6);
         }
-        
+
         .down-btn:hover {
             background: rgba(244, 67, 54, 0.6);
         }
-        
+
         .service-buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
         }
-        
+
         .service-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -151,22 +151,22 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .service-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
-        
+
         .service-btn.active {
             background: rgba(255, 215, 0, 0.6);
             border-color: rgba(255, 215, 0, 0.8);
         }
-        
+
         .controls {
             text-align: center;
             margin-top: 30px;
         }
-        
+
         .reset-btn {
             background: linear-gradient(45deg, #ff6b6b, #ee5a24);
             border: none;
@@ -179,63 +179,26 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
         }
-        
+
         .reset-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(238, 90, 36, 0.6);
         }
-        
+
         .game-info {
             text-align: center;
             margin-bottom: 20px;
             font-size: 1.1rem;
             opacity: 0.9;
         }
-        
+
         .name-input-section {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 30px;
         }
-        
-        .name-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .name-input-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .name-input-group label {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        .name-input-group input {
-            padding: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .name-input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        .name-input-group input:focus {
-            outline: none;
-            border-color: rgba(255, 215, 0, 0.8);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
+
         .update-names-btn {
             background: linear-gradient(45deg, #4CAF50, #45a049);
             border: none;
@@ -249,12 +212,13 @@
             display: block;
             margin: 0 auto;
         }
-        
+
         .update-names-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
         }
-        
+
+        /* ========== MODAL STYLE ========== */
         .winner-announcement {
             position: fixed;
             top: 0;
@@ -266,22 +230,25 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            padding: 20px;
         }
-        
+
         .winner-content {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
         }
-        
+
         .winner-text {
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 20px;
         }
-        
+
         .close-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -292,45 +259,81 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .close-btn:hover {
             background: rgba(255, 255, 255, 0.3);
         }
-        
-        @media (max-width: 768px) {
-            .scoreboard {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .name-inputs {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
-            
-            .score {
-                font-size: 3rem;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-            
-            .score-container {
-                gap: 10px;
-            }
-            
-            .score-control {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-        }
-    </style>
+
+/* === Responsive adjustments for modal on small screens === */
+@media (max-width: 768px) {
+    .scoreboard {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .score {
+        font-size: 3rem;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    /* --- Modal Atur Nama Tim --- */
+    #name-modal .winner-content {
+        width: 95%;
+        max-width: 420px;
+        padding: 18px;
+        border-radius: 15px;
+        overflow-y: auto;
+        max-height: 90vh;
+        box-sizing: border-box;
+    }
+
+    /* Input agar 1 kolom di HP */
+    #name-modal div[style*="display: flex;"] {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    #name-modal input {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    /* Tombol simpan & batal menumpuk vertikal */
+    #name-modal .winner-content > div:last-child {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    #name-modal .close-btn {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 400px) {
+    #name-modal .winner-content {
+        padding: 15px;
+    }
+
+    #name-modal input {
+        font-size: 0.9rem;
+    }
+
+    .winner-text {
+        font-size: 2rem;
+    }
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -603,6 +606,7 @@
 </script>
 </body>
 </html>
+
 
 
 
