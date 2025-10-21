@@ -218,111 +218,98 @@
         box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
     }
 
-    /* ===================== MODAL STYLE ===================== */
-    .winner-announcement {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        padding: 20px;
-        box-sizing: border-box;
-    }
+/* ========== MODAL STYLE (umum) ========== */
+.winner-announcement {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-    .winner-content {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 30px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        width: 90%;
-        max-width: 400px;
-        margin: 0 auto;
-        box-sizing: border-box;
-    }
+/* Untuk konten modal (baik winner maupun name) */
+.winner-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
 
-    .winner-text {
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
+/* Tombol umum */
+.close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-    .close-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        padding: 12px 25px;
-        border-radius: 10px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
 
-    .close-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-    }
+/* === Modal "Atur Nama Tim" Responsif === */
+#name-modal .winner-content {
+    width: 90%;
+    max-width: 420px;
+    padding: 25px;
+}
 
-    /* === Modal Atur Nama Tim Responsif === */
+/* --- ✅ PERBAIKAN UTAMA --- */
+#name-modal div[style*="display: flex;"] {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Versi HP: ubah jadi 1 kolom */
+@media (max-width: 768px) {
     #name-modal .winner-content {
-        width: 90%;
-        max-width: 420px;
-        padding: 25px;
+        width: 95%;
+        padding: 18px;
+        border-radius: 15px;
+        overflow-y: auto;
+        max-height: 90vh;
     }
 
-    @media (max-width: 768px) {
-        .scoreboard {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .title {
-            font-size: 2rem;
-        }
-
-        .score {
-            font-size: 3rem;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        #name-modal .winner-content {
-            width: 95%;
-            padding: 18px;
-            border-radius: 15px;
-            overflow-y: auto;
-            max-height: 90vh;
-        }
-
-        #name-modal div[style*="display: flex;"] {
-            flex-direction: column !important;
-            gap: 8px !important;
-        }
-
-        #name-modal input {
-            width: 100%;
-            font-size: 1rem;
-            padding: 10px;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-
-        #name-modal .winner-content > div:last-child {
-            flex-direction: column !important;
-            gap: 8px !important;
-        }
-
-        #name-modal .close-btn {
-            width: 100%;
-            margin-top: 5px;
-        }
+    #name-modal div[style*="display: flex;"] {
+        flex-direction: column !important;
+        gap: 8px !important;
     }
+
+    #name-modal input {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    #name-modal .winner-content > div:last-child {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    #name-modal .close-btn {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
 </style>
 </head>
 <body>
@@ -596,6 +583,7 @@
 </script>
 </body>
 </html>
+
 
 
 
