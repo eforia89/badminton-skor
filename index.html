@@ -1,292 +1,300 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Papan Skor Badminton - PB Mbah Dar Der Dor</title>
-<style>
-    body {
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100%;
-        color: white;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Skor Badminton - PB Mbah Dar Der Dor</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+            color: white;
+        }
 
-    html {
-        height: 100%;
-    }
+        html {
+            height: 100%;
+        }
 
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .scoreboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .player-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .player-section.serving {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 193, 7, 0.5));
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            border: 2px solid rgba(255, 215, 0, 0.7);
+        }
+
+        .player-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-indicator {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .serving-text {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #1a1a1a;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.8);
+        }
+
+        .score-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .score-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-control:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .up-btn:hover {
+            background: rgba(76, 175, 80, 0.6);
+        }
+
+        .down-btn:hover {
+            background: rgba(244, 67, 54, 0.6);
+        }
+
+        .service-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .service-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .service-btn.active {
+            background: rgba(255, 215, 0, 0.6);
+            border-color: rgba(255, 215, 0, 0.8);
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .reset-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(238, 90, 36, 0.6);
+        }
+
+        .game-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .name-input-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .update-names-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .update-names-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        /* ========== MODAL STYLE ========== */
+        .winner-announcement {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+
+        }
+
+        .winner-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .winner-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+/* === Responsive adjustments for modal on small screens === */
+@media (max-width: 768px) {
+    .scoreboard {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .title {
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .subtitle {
-        text-align: center;
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-        opacity: 0.9;
-    }
-
-    .scoreboard {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        margin-bottom: 30px;
-    }
-
-    .player-section {
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 15px;
-        padding: 25px;
-        text-align: center;
-        transition: transform 0.3s ease;
-    }
-
-    .player-section.serving {
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 193, 7, 0.5));
-        transform: scale(1.02);
-        box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
-        border: 2px solid rgba(255, 215, 0, 0.7);
-    }
-
-    .player-name {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 15px;
+        font-size: 2rem;
     }
 
     .score {
-        font-size: 4rem;
-        font-weight: bold;
-        margin: 20px 0;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-size: 3rem;
     }
 
-    .service-indicator {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .serving-text {
-        background: linear-gradient(45deg, #ffd700, #ffed4e);
-        color: #1a1a1a;
-        padding: 8px 18px;
-        border-radius: 25px;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-        border: 1px solid rgba(255, 215, 0, 0.8);
-    }
-
-    .score-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        margin: 20px 0;
-    }
-
-    .score-control {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .score-control:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(1.1);
-    }
-
-    .up-btn:hover {
-        background: rgba(76, 175, 80, 0.6);
-    }
-
-    .down-btn:hover {
-        background: rgba(244, 67, 54, 0.6);
-    }
-
-    .service-buttons {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-    }
-
-    .service-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        padding: 10px 15px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .service-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-    }
-
-    .service-btn.active {
-        background: rgba(255, 215, 0, 0.6);
-        border-color: rgba(255, 215, 0, 0.8);
-    }
-
-    .controls {
-        text-align: center;
-        margin-top: 30px;
-    }
-
-    .reset-btn {
-        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-        border: none;
-        color: white;
-        padding: 15px 30px;
-        border-radius: 25px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
-    }
-
-    .reset-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(238, 90, 36, 0.6);
-    }
-
-    .game-info {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 1.1rem;
-        opacity: 0.9;
-    }
-
-    .name-input-section {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
+    .container {
         padding: 20px;
-        margin-bottom: 30px;
     }
 
-    .update-names-btn {
-        background: linear-gradient(45deg, #4CAF50, #45a049);
-        border: none;
-        color: white;
-        padding: 12px 25px;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: block;
-        margin: 0 auto;
-    }
-
-    .update-names-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-    }
-
-/* ========== MODAL STYLE (umum) ========== */
-.winner-announcement {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Untuk konten modal (baik winner maupun name) */
-.winner-content {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    width: 90%;
-    max-width: 400px;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-/* Tombol umum */
-.close-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.close-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* === Modal "Atur Nama Tim" Responsif === */
-#name-modal .winner-content {
-    width: 90%;
-    max-width: 420px;
-    padding: 25px;
-}
-
-/* --- ✅ PERBAIKAN UTAMA --- */
-#name-modal div[style*="display: flex;"] {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-/* Versi HP: ubah jadi 1 kolom */
-@media (max-width: 768px) {
+    /* --- Modal Atur Nama Tim --- */
     #name-modal .winner-content {
         width: 95%;
+        max-width: 420px;
         padding: 18px;
         border-radius: 15px;
         overflow-y: auto;
         max-height: 90vh;
+        box-sizing: border-box;
     }
 
+    /* Input agar 1 kolom di HP */
     #name-modal div[style*="display: flex;"] {
         flex-direction: column !important;
         gap: 8px !important;
@@ -300,6 +308,7 @@
         box-sizing: border-box;
     }
 
+    /* Tombol simpan & batal menumpuk vertikal */
     #name-modal .winner-content > div:last-child {
         flex-direction: column !important;
         gap: 8px !important;
@@ -308,6 +317,20 @@
     #name-modal .close-btn {
         width: 100%;
         margin-top: 5px;
+    }
+}
+
+@media (max-width: 400px) {
+    #name-modal .winner-content {
+        padding: 15px;
+    }
+
+    #name-modal input {
+        font-size: 0.9rem;
+    }
+
+    .winner-text {
+        font-size: 2rem;
     }
 }
 </style>
@@ -583,9 +606,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
